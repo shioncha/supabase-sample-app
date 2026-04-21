@@ -1,4 +1,5 @@
 import { updateData } from './actions' // 後で作るので今はエラーになる
+import { insertData } from '../insert/actions';
 // サーバー側の処理なので、サーバー側のSupabaseクライアントを使用
 import { createClient } from '@/utils/supabase/server'
 
@@ -21,6 +22,7 @@ const Page = async () => {
   
   return (
     <main>
+      <h2>Todoリスト</h2>
       {todos.length > 0 &&
         <ul>
           {/* データの数だけフォームを用意 */}
@@ -35,6 +37,11 @@ const Page = async () => {
           ))}
         </ul>
       }
+      <h2>新しいTodo</h2>
+      <form action={insertData}>
+        <input type='text' name='text' />
+        <button type='submit'>追加</button>
+      </form>
     </main>
   );
 }

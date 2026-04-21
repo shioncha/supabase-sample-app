@@ -1,6 +1,13 @@
+import { createClient } from '@/utils/supabase/server'
 import { login, signup } from './actions' // まだ作っていない。後で作る。
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.getUser()
+  if (error || data?.user) {
+    return <p>You are already logged in</p>
+  }
+
   return (
     <form>
       <label htmlFor="email">Email:</label>
